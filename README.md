@@ -1,4 +1,6 @@
 # Spin-O-Llama
+[![build](https://github.com/BLaZeKiLL/Spin-O-Llama/actions/workflows/build.yml/badge.svg)](https://github.com/BLaZeKiLL/Spin-O-Llama/actions/workflows/build.yml)
+
 [Ollama api](https://github.com/jmorganca/ollama/blob/main/docs/api.md) implementation for spin
 
 > :warning: **Proof of concept**: This project is not production ready
