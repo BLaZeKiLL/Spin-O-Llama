@@ -6,3 +6,35 @@ on:
   push:
     tags:
       - "v*"
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup `rust`
+        uses: actions-rs/toolchain@v1
+        with:
+            toolchain: stable
+      
+      - name: Setup `wasm`
+        run: rustup target add wasm32-wasi
+
+      - name: Setup `spin`
+        uses: fermyon/actions/spin/setup@v1
+
+      - name: Run `spin version`
+        run: "spin --version"
+
+      - name: build and push
+        id: push
+        uses: fermyon/actions/spin/push@v1
+        with:
+          registry: ghcr.io
+          registry_username: ${{ github.actor }}
+          registry_password: ${{ secrets.GITHUB_TOKEN }}
+          registry_reference: "ghcr.io/${{ env.REPOSITORY }}/spin-o-llama:latest"
+
+      - name: echo digest
+        run: echo ${{ steps.push.outputs.digest }}
