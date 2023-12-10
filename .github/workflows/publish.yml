@@ -34,7 +34,7 @@ jobs:
           registry: ghcr.io
           registry_username: ${{ github.actor }}
           registry_password: ${{ secrets.GITHUB_TOKEN }}
-          registry_reference: "ghcr.io/${{ env.REPOSITORY }}/spin-o-llama:latest"
+          registry_reference: "ghcr.io/blazekill/spin-o-llama:latest"
 
       - name: echo digest
         run: echo ${{ steps.push.outputs.digest }}
