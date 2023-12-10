@@ -1,0 +1,35 @@
+spin_manifest_version = 2
+
+# General identification information
+[application]
+name = "spin-o-llama"
+version = "1.0.0"
+description = "Ollama API"
+
+[[trigger.http]]
+route = "/api/generate"
+component = "generate"
+
+[component.generate]
+source = "target/wasm32-wasi/release/generate.wasm"
+allowed_outbound_hosts = []
+ai_models = ["llama2-chat", "codellama-instruct"]
+
+[component.generate.build]
+command = "cargo build --target wasm32-wasi --release"
+workdir = "generate"
+watch = ["src/**/*.rs", "Cargo.toml"]
+
+[[trigger.http]]
+route = "/api/embeddings"
+component = "embeddings"
+
+[component.embeddings]
+source = "target/wasm32-wasi/release/embeddings.wasm"
+allowed_outbound_hosts = []
+ai_models = ["all-minilm-l6-v2"]
+
+[component.embeddings.build]
+command = "cargo build --target wasm32-wasi --release"
+workdir = "embeddings"
+watch = ["src/**/*.rs", "Cargo.toml"]

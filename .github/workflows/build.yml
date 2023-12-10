@@ -1,0 +1,27 @@
+# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
+
+name: build
+
+on:
+  workflow_dispatch: # Allow running the workflow manually from the GitHub UI
+  push:
+    branches:
+      - 'main'       # Run the workflow when pushing to the main branch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup `rust`
+        uses: actions-rs/toolchain@v1
+
+      - name: Setup `spin`
+        uses: fermyon/actions/spin/setup@v1
+
+      - name: Run `spin version`
+        run: "spin --version"
+
+      - name: Run `spin build`
+        run: "spin build"
