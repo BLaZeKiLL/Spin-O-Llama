@@ -16,6 +16,8 @@ jobs:
 
       - name: Setup `rust`
         uses: actions-rs/toolchain@v1
+        with:
+            toolchain: stable
 
       - name: Setup `spin`
         uses: fermyon/actions/spin/setup@v1
