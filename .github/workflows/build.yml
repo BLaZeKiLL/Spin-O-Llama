@@ -18,6 +18,9 @@ jobs:
         uses: actions-rs/toolchain@v1
         with:
             toolchain: stable
+      
+      - name: Setup `wasm`
+        run: rustup target add wasm32-wasi
 
       - name: Setup `spin`
         uses: fermyon/actions/spin/setup@v1
