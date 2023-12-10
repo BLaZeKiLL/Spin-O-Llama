@@ -26,7 +26,7 @@
     ```
 
 Routes implemented
-- [/api/generate](https://github.com/jmorganca/ollama/blob/main/docs/api.md#generate-a-completion)
+- POST [/api/generate](https://github.com/jmorganca/ollama/blob/main/docs/api.md#generate-a-completion)
 
     supported request body
     ```json
@@ -51,7 +51,7 @@ Routes implemented
         "done": true
     }
     ```
-- [/api/embeddings](https://github.com/jmorganca/ollama/blob/main/docs/api.md#generate-embeddings)
+- POST [/api/embeddings](https://github.com/jmorganca/ollama/blob/main/docs/api.md#generate-embeddings)
 
     supported request body
     ```json
