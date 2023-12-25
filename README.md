@@ -33,8 +33,9 @@ Routes implemented
     {
         "model": "<supported-model>",
         "prompt": "<input prompt>",
-        "stream": false // streaming not supported, has no impact
-        "options": { // options are optional
+        "system": "<system prompt>", // optional, system prompt
+        "stream": false, // streaming not supported, has no impact
+        "options": { // optional, llm options
             "num_predict": 128,
             "temperature": 0.8,
             "top_p": 0.9,
