@@ -31,6 +31,7 @@ pub struct OllamaGenerateRequest {
     pub model: String,
     pub prompt: String,
     pub stream: bool,
+    pub system: Option<String>,
     pub options: Option<OllamaOptions>,
 }
 
@@ -43,14 +44,20 @@ pub struct OllamaGenerateResponse {
     pub done: bool,
 }
 
+const PROMPT: &str = r#"
+<SYS>
+{SYSTEM}
+</SYS>
+
+User: {USER}
+"#;
+
 /// A simple Spin HTTP component.
 #[http_component]
 fn handle_generate(req: Request) -> Result<Response> {
     println!("Handling request to {:?}", req.header("spin-full-url"));
 
     let request: OllamaGenerateRequest = serde_json::from_slice(req.body())?;
-
-    println!("PROMPT: {:?}", &request.prompt);
 
     let options = request.options.unwrap_or_default();
 
@@ -60,9 +67,18 @@ fn handle_generate(req: Request) -> Result<Response> {
         _ => panic!("Unsupported model")
     };
 
+    let prompt = match request.system {
+        Some(sys) => PROMPT
+            .replace("{SYSTEM}", sys.as_str())
+            .replace("{USER}", request.prompt.as_str()),
+        None => request.prompt,
+    };
+
+    println!("PROMPT: {:?}", prompt.as_str());
+
     let result = infer_with_options(
         model,
-        &request.prompt,
+        prompt.as_str(),
         InferencingParams {
             max_tokens: options.num_predict,
             repeat_penalty: options.repeat_penalty,
