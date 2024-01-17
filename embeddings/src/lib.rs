@@ -25,6 +25,8 @@ fn handle_embeddings(req: Request) -> Result<Response> {
     
     let request: OllamaEmbeddingRequest = serde_json::from_slice(req.body())?;
 
+    println!("PROMPT: {:?}", request.prompt.as_str());
+
     let result = generate_embeddings(
         EmbeddingModel::AllMiniLmL6V2, &[request.prompt]
     );
