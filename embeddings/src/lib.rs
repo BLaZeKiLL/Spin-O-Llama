@@ -31,6 +31,8 @@ fn handle_embeddings(req: Request) -> Result<Response> {
         EmbeddingModel::AllMiniLmL6V2, &[request.prompt]
     );
 
+    println!("EMBEDDING GENERATED");
+
     let response = OllamaEmbeddingResponse { embedding: result?.embeddings.remove(0) };
 
     send_ok_response(200, response)
