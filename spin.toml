@@ -3,7 +3,7 @@ spin_manifest_version = 2
 # General identification information
 [application]
 name = "spin-o-llama"
-version = "1.0.4"
+version = "1.0.5"
 description = "Ollama API"
 
 [[trigger.http]]

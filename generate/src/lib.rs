@@ -9,19 +9,19 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Deserialize)]
 pub struct OllamaOptions {
-    pub num_predict: u32,
-    pub temperature: f32,
-    pub top_p: f32,
-    pub repeat_penalty: f32,
+    pub num_predict: Option<u32>,
+    pub temperature: Option<f32>,
+    pub top_p: Option<f32>,
+    pub repeat_penalty: Option<f32>,
 }
 
 impl Default for OllamaOptions {
     fn default() -> Self {
         Self {
-            num_predict: 128,
-            temperature: 0.8,
-            top_p: 0.9,
-            repeat_penalty: 1.1,
+            num_predict: Some(128),
+            temperature: Some(0.8),
+            top_p: Some(0.9),
+            repeat_penalty: Some(1.1),
         }
     }
 }
@@ -80,12 +80,12 @@ fn handle_generate(req: Request) -> Result<Response> {
         model,
         prompt.as_str(),
         InferencingParams {
-            max_tokens: options.num_predict,
-            repeat_penalty: options.repeat_penalty,
+            max_tokens: options.num_predict.unwrap_or(128),
+            repeat_penalty: options.repeat_penalty.unwrap_or(1.1),
             repeat_penalty_last_n_token_count: 64,
-            temperature: options.temperature,
+            temperature: options.temperature.unwrap_or(0.8),
             top_k: 40,
-            top_p: options.top_p,
+            top_p: options.top_p.unwrap_or(0.9),
         },
     );
 

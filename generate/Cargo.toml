@@ -2,7 +2,7 @@
 name = "generate"
 authors = ["Devashish Lal <laldevashish@gmail.com>"]
 description = "Ollama generate api"
-version = "1.0.4"
+version = "1.0.5"
 edition = "2021"
 
 [lib]
